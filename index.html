@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Games Collection</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- Menu -->
+<div id="main-menu" class="screen active">
+  <h1>Mini Games Collection</h1>
+  <div class="games-grid">
+    <div class="game-card" data-game="rock-paper-scissors">
+      <div class="game-icon">✊✋✌️</div>
+      <h3>Rock Paper Scissors</h3>
+      <p>Classic game of chance against the computer</p>
+    </div>
+    <div class="game-card" data-game="memory-game">
+      <div class="game-icon">🎴</div>
+      <h3>Memory Game</h3>
+      <p>Find all matching pairs before time runs out</p>
+    </div>
+    <div class="game-card" data-game="tic-tac-toe">
+      <div class="game-icon">❌⭕</div>
+      <h3>Tic Tac Toe</h3>
+      <p>Classic game of X's and O's</p>
+    </div>
+    <div class="game-card" data-game="hangman">
+      <div class="game-icon">🎯</div>
+      <h3>Hangman</h3>
+      <p>Guess the hidden word before you run out of attempts</p>
+    </div>
+    <div class="game-card" data-game="puzzle-15">
+      <div class="game-icon">🔢</div>
+      <h3>15 Puzzle</h3>
+      <p>Slide the tiles to put them in order</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Rock Paper Scissors Game -->
+<div id="rock-paper-scissors" class="screen">
+  <div class="game-header">
+    <h2>Rock Paper Scissors</h2>
+    <button class="back-button">Back to Menu</button>
+  </div>
+  <div class="game-content">
+    <div class="score-board">
+      <div class="score">
+        <p>You: <span id="user-score">0</span></p>
+        <p>Computer: <span id="computer-score">0</span></p>
+      </div>
+    </div>
+    <div class="game-area">
+      <div id="result-message">Choose your move!</div>
+      <div class="choices">
+        <button class="choice" data-choice="rock">✊</button>
+        <button class="choice" data-choice="paper">✋</button>
+        <button class="choice" data-choice="scissors">✌️</button>
+      </div>
+      <div class="battle-area">
+        <div class="player-choice">You: <span id="player-choice-display">?</span></div>
+        <div class="vs">VS</div>
+        <div class="computer-choice">Computer: <span id="computer-choice-display">?</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Memory Game -->
+<div id="memory-game" class="screen">
+  <div id="settings-container">
+    <h2>Game Settings</h2>
+    <form id="game-settings">
+        <div class="settings-group">
+            <label for="board-size">Board Size:</label>
+            <select id="board-size">
+                <option value="3">3×3</option>
+                <option value="4" selected>4×4</option>
+                <option value="5">5×5</option>
+            </select>
+        </div>
+        
+        <div class="settings-group">
+            <label for="difficulty">Difficulty (time):</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+                <option value="custom">Custom Time</option>
+            </select>
+        </div>
+        
+        <div class="settings-group" id="custom-time-group">
+            <label for="custom-time">Set Time (in seconds):</label>
+            <input type="number" id="custom-time" min="10" max="600" value="120">
+        </div>
+        
+        <button type="submit">Start Game</button>
+    </form>
+</div>
+
+  <div id="game-container" style="display: none;">
+    <div class="game-info">
+      <div class="game-header">
+    <h2>Memory Game</h2>
+    <button class="back-button">Back to Menu</button>
+  </div>
+        <div class="game-stat">
+            Moves: <span id="moves-count">0</span>
+        </div>
+        <div class="game-stat">
+            Time: <span id="time">00:00</span>
+        </div>
+    </div>
+    
+    <div id="memory-cards"></div>
+    
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+        <button id="restart-memory">Restart</button>
+        <button id="back-to-settings">Settings</button>
+    </div>
+</div>
+</div>
+
+
+<!-- Tic Tac Toe Game  -->
+<div id="tic-tac-toe" class="screen">
+  <div class="game-header">
+    <h2>Tic Tac Toe</h2>
+    <button class="back-button">Back to Menu</button>
+  </div>
+  <div class="game-content">
+    <div class="settings" id="tic-tac-toe-settings">
+      <div class="settings-row">
+          <label for="gameMode">Game Mode:</label>
+          <select id="gameMode">
+              <option value="vsComputer">vs Computer</option>
+              <option value="vsPlayer">Two Players</option>
+          </select>
+      </div>
+      
+      <div class="settings-row" id="difficultySetting">
+          <label for="difficulty">Difficulty:</label>
+          <select id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+          </select>
+      </div>
+      
+      <div class="settings-row">
+          <button id="startGame">Start Game</button>
+      </div>
+    </div>
+
+    <div id="tic-tac-toe-gameplay" style="display: none;">
+      <div class="game-status" id="game-status">Turn: X</div>
+      <div class="tic-tac-toe-board" id="tic-tac-toe-board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+      <div class="tic-tac-toe-controls">
+        <button id="reset-tictactoe">New Game</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hangman Game -->
+<div id="hangman" class="screen">
+  <div class="game-header">
+    <h2>Hangman (Guess the Word)</h2>
+    <button class="back-button">Back to Menu</button>
+  </div>
+  <div class="game-content">
+    <div class="hangman-container">
+      <div class="hangman-drawing">
+        <svg height="250" width="200" class="hangman-svg">
+          <line x1="60" y1="20" x2="140" y2="20" class="hangman-part"></line>
+          <line x1="140" y1="20" x2="140" y2="50" class="hangman-part"></line>
+          <line x1="60" y1="20" x2="60" y2="230" class="hangman-part"></line>
+          <line x1="20" y1="230" x2="100" y2="230" class="hangman-part"></line>
+          
+          <circle cx="140" cy="80" r="30" class="hangman-part hidden" id="head"></circle>
+
+          <line x1="140" y1="110" x2="140" y2="170" class="hangman-part hidden" id="body"></line>
+          
+          <line x1="140" y1="130" x2="110" y2="120" class="hangman-part hidden" id="left-arm"></line>
+          <line x1="140" y1="130" x2="170" y2="120" class="hangman-part hidden" id="right-arm"></line>
+
+          <line x1="140" y1="170" x2="120" y2="210" class="hangman-part hidden" id="left-leg"></line>
+          <line x1="140" y1="170" x2="160" y2="210" class="hangman-part hidden" id="right-leg"></line>
+        </svg>
+      </div>
+      
+      <div class="hangman-game-status">
+        <div class="hangman-word" id="hangman-word"></div>
+        <div class="hangman-message" id="hangman-message">Guess the word by selecting letters!</div>
+        <div class="hangman-attempts">Attempts left: <span id="attempts-left">6</span></div>
+      </div>
+      
+      <div class="hangman-keyboard" id="hangman-keyboard"></div>
+      
+      <div class="hangman-controls">
+        <div class="hangman-categories">
+          <label for="word-category">Category:</label>
+          <select id="word-category">
+            <option value="animals">Animals</option>
+            <option value="countries">Countries</option>
+            <option value="fruits">Fruits</option>
+            <option value="sports">Sports</option>
+            <option value="jobs">Jobs</option>
+          </select>
+        </div>
+        <button id="new-hangman-game">New Game</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Puzzle Game -->
+<div id="puzzle-15" class="screen">
+  <div class="game-header">
+    <h2>15 Puzzle</h2>
+    <button class="back-button">Back to Menu</button>
+  </div>
+  <div class="game-content">
+    <div class="puzzle-container">
+      <div class="puzzle-stats">
+        <div class="puzzle-moves">Moves: <span id="puzzle-moves-count">0</span></div>
+        <div class="puzzle-timer">Time: <span id="puzzle-timer">00:00</span></div>
+      </div>
+      
+      <div class="puzzle-board" id="puzzle-board"></div>
+      
+      <div class="puzzle-controls">
+        <div class="puzzle-size-selector">
+          <label for="puzzle-size">Size:</label>
+          <select id="puzzle-size">
+            <option value="3">3×3</option>
+            <option value="4" selected>4×4</option>
+            <option value="5">5×5</option>
+          </select>
+        </div>
+        <div class="puzzle-bth">
+        <button id="shuffle-puzzle">Shuffle</button>
+        <button id="solve-puzzle">Solve</button>  
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

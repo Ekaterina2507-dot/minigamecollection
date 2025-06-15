@@ -1,0 +1,845 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url('image.svg'), linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 100px 100px, cover;
+    background-repeat: repeat, no-repeat;
+    font-family: 'Poppins', sans-serif;
+    color: #2d3748;
+    position: relative;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.game-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.game-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.game-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.game-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.back-button {
+    margin-left: auto;
+    width: 100px;
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+.back-button:hover {
+    background: #d32f2f;
+}
+
+.game-content {
+    padding: 10px 0;
+}
+
+/* Rock Paper Scissors Styles */
+.score-board {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.score {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.choice {
+    font-size: 2.5rem;
+    background: white;
+    border: 3px solid #333;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.choice:hover {
+    transform: scale(1.1);
+    background: #f0f0f0;
+}
+
+.battle-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 30px 0;
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.vs {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #f44336;
+}
+
+#result-message {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+/* Memory Game Styles */
+#settings-container, 
+#game-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+select, 
+input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+select:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+button {
+    margin: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.game-stat {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.game-stat span {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+#memory-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+    perspective: 1000px;
+    justify-content: center;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+    border-radius: 10px;
+    min-height: 60px;
+}
+
+.memory-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-radius: 10px;
+}
+
+.front {
+    background-color: #fff;
+    border: 2px solid #af4caf4c;
+    transform: rotateY(180deg);
+}
+
+.back {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+#custom-time-group {
+    display: none;
+}
+
+back-to-settings,back-to-settings{
+    margin-right: 5px;
+}
+
+/* Tic Tac Toe Styles */
+.game-status {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.settings {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 20px;
+}
+
+.settings-row {
+    margin-bottom: 15px;
+}
+
+.settings-row:last-child {
+    margin-bottom: 0;
+}
+
+.settings label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.settings select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.tic-tac-toe-board {
+    width: 100%;
+    max-width: 320px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    background-color: #444;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    aspect-ratio: 1;
+}
+
+.tic-tac-toe-board .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(24px, 8vw, 48px);
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+    aspect-ratio: 1;
+}
+
+.tic-tac-toe-board .cell:hover {
+    background-color: #f0f0f0;
+}
+
+.tic-tac-toe-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+/* Hangman Game Styles */
+.hangman-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.hangman-drawing {
+    margin-bottom: 20px;
+}
+
+.hangman-svg {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
+.hangman-part {
+    stroke: #333;
+    stroke-width: 4;
+    fill: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.hangman-game-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.hangman-word {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.letter {
+    font-size: 24px;
+    min-width: 30px;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 2px solid #333;
+    margin: 0 3px;
+}
+
+.hangman-message {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.hangman-message.win {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.hangman-message.lose {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.hangman-attempts {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.hangman-keyboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(67px, 1fr));
+    gap: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.letter-btn {
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border: none;
+    transition: background-color 0.2s;
+    min-height: 40px;
+}
+
+.letter-btn:hover {
+    background-color: #d0d0d0;
+}
+
+.letter-btn.correct {
+    background-color: #4caf50;
+    color: white;
+}
+
+.letter-btn.incorrect {
+    background-color: #f44336;
+    color: white;
+}
+
+.hangman-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.hangman-categories {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hangman-categories label {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.hangman-categories select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    min-width: 120px;
+}
+
+/* 15 Puzzle Styles */
+.puzzle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.puzzle-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.puzzle-board {
+    display: grid;
+    grid-gap: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    background-color: #bbada0;
+    padding: 5px;
+    border-radius: 5px;
+    aspect-ratio: 1;
+}
+
+.puzzle-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee4da;
+    border-radius: 3px;
+    font-size: clamp(16px, 4vw, 24px);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    aspect-ratio: 1;
+}
+
+.puzzle-tile:hover {
+    background-color: #ede0c8;
+}
+
+.puzzle-tile.correct-position {
+    background-color: #bbada0;
+    color: #f9f6f2;
+}
+
+.empty-tile {
+    background-color: #cdc1b4;
+    border-radius: 3px;
+}
+
+.puzzle-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.puzzle-size-selector {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.puzzle-size-selector label {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.puzzle-size-selector select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    min-width: 80px;
+}
+
+/* Control buttons container for memory game */
+.memory-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    .screen {
+        padding: 20px;
+        margin: 10px auto;
+        border-radius: 12px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .games-grid {
+        display: flex;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    
+    .game-card {
+        width: 300px;
+        padding: 15px;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .game-header h2 {
+        margin-bottom: 0;
+    }
+    
+    .choices {
+        gap: 20px;
+    }
+    
+    .choice {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .battle-area {
+        font-size: 1rem;
+        gap: 15px;
+    }
+    
+    .score {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #settings-container,
+    #game-container {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .game-stat {
+        min-width: auto;
+    }
+    
+    #memory-cards {
+        max-width: 300px;
+        gap: 8px;
+    }
+    
+    .memory-card {
+        min-height: 50px;
+    }
+    
+    .front, .back {
+        font-size: 1.2rem;
+    }
+    
+    .tic-tac-toe-board {
+        max-width: 280px;
+    }
+    
+    .hangman-svg {
+        width: 180px;
+        height: 220px;
+    }
+    
+    .hangman-keyboard {
+        grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+        gap: 3px;
+    }
+    
+    .letter-btn {
+        padding: 8px;
+        font-size: 12px;
+        min-height: 35px;
+    }
+    
+    .hangman-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .hangman-categories {
+        justify-content: center;
+    }
+    
+    .puzzle-board {
+        max-width: 300px;
+    }
+    
+    .puzzle-stats {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .puzzle-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .puzzle-size-selector {
+        justify-content: center;
+    }
+    
+    .memory-controls {
+        flex-direction: column;
+    }
+    
+    .memory-controls button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .puzzle-bth{
+        display: flex;
+        justify-content: space-around;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .screen {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .choice {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+    
+    .choices {
+        gap: 15px;
+    }
+    
+    #memory-cards {
+        max-width: 260px;
+        gap: 6px;
+    }
+    
+    .memory-card {
+        min-height: 45px;
+    }
+    
+    .tic-tac-toe-board {
+        max-width: 240px;
+    }
+    
+    .puzzle-board {
+        max-width: 260px;
+    }
+    
+    .hangman-svg {
+        width: 200px;
+        height: 220px;
+    }
+    
+    .letter {
+        font-size: 20px;
+        min-width: 25px;
+    }
+}
